@@ -3,112 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <title>CommerciumX</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; display:flex; flex-direction:column; min-height:100vh; }
+    header { background:#333; color:#fff; padding:10px 20px; display:flex; align-items:center; justify-content:space-between; }
+    header .logo { font-size:20px; font-weight:bold; }
+    header .actions { display:flex; gap:15px; align-items:center; }
+    .main { flex:1; display:flex; }
+    .sidebar { width:220px; background:#f4f4f4; padding:15px; transition: all 0.3s ease; overflow-y:auto; }
+    .content { flex:1; padding:20px; overflow-y:auto; }
+    h2 { color:#333; }
+    ul { list-style:none; padding:0; }
+    li { margin:8px 0; cursor:pointer; }
+    li:hover { color:blue; }
+    footer { background:#222; color:#fff; padding:20px; text-align:center; }
+    body.light { background:#fff; color:#000; }
+    body.dark { background:#111; color:#eee; }
+    .profile { width:40px; height:40px; border-radius:50%; background:#666; display:flex; align-items:center; justify-content:center; animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { transform:scale(1); background:#666; } 50% { transform:scale(1.1); background:#999; } 100% { transform:scale(1); background:#666; } }
+  </style>
 </head>
-<body>
-  <!-- Header -->
-  <header>
-    <button id="hamburger">☰</button>
-    <button id="discover">Discover</button>
-    <h1>CommerciumX</h1>
-    <div class="header-right">
-      <input type="text" placeholder="Search...">
-      <button>🔔</button>
-      <button>👤</button>
-    </div>
-  </header>
+<body class="light">
 
-  <!-- Left Sidebar -->
-  <aside id="left-sidebar">
+<header>
+  <div class="logo">☰ CommerciumX</div>
+  <div class="actions">
+    <input type="text" placeholder="Search...">
+    <span>🔔</span>
+    <div class="profile">👤</div>
+    <select onchange="switchTheme(this.value)">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+      <option value="system">System</option>
+    </select>
+  </div>
+</header>
+
+<div class="main">
+  <div class="sidebar">
     <h2>Academic</h2>
     <ul>
-      <li>B.Com → Accounting, Economics, Business Law, Auditing</li>
-      <li>M.Com</li>
-      <li>BBA</li>
-      <li>MBA</li>
-      <li>BCA</li>
-      <li>MCA</li>
-      <li>11th</li>
-      <li>12th</li>
+      <li onclick="openCourse('BCom')">B.Com</li>
+      <li onclick="openCourse('BBA')">BBA</li>
+      <li onclick="openCourse('MBA')">MBA</li>
+      <li onclick="openCourse('MCom')">M.Com</li>
     </ul>
 
     <h2>Competitive Exams</h2>
     <ul>
-      <li>CA</li>
-      <li>CMA</li>
-      <li>CS</li>
-      <li>ACCA</li>
-      <li>CFA</li>
-      <li>CPA</li>
-      <li>FRM</li>
-      <li>MBA Entrances</li>
-      <li>Banking Exams</li>
-      <li>Government Exams</li>
+      <li onclick="openExam('CA')">CA</li>
+      <li onclick="openExam('ACCA')">ACCA</li>
+      <li onclick="openExam('CS')">CS</li>
+      <li onclick="openExam('CMA')">CMA</li>
+      <li onclick="openExam('CFA')">CFA</li>
+      <li onclick="openExam('CPA')">CPA</li>
+      <li onclick="openExam('FRM')">FRM</li>
+      <li onclick="openExam('UPSC')">UPSC Commerce Optional</li>
+      <li onclick="openExam('Banking')">Banking Exams</li>
+      <li onclick="openExam('SSC')">SSC CGL Commerce Stream</li>
+    </ul>
+
+    <h2>Study Material</h2>
+    <ul>
+      <li onclick="openStudyMaterial('CA')">CA</li>
+      <li onclick="openStudyMaterial('ACCA')">ACCA</li>
+      <li onclick="openStudyMaterial('CS')">CS</li>
+      <li onclick="openStudyMaterial('CMA')">CMA</li>
+      <li onclick="openStudyMaterial('CFA')">CFA</li>
+      <li onclick="openStudyMaterial('CPA')">CPA</li>
+      <li onclick="openStudyMaterial('FRM')">FRM</li>
+      <li onclick="openStudyMaterial('UPSC')">UPSC Commerce Optional</li>
+      <li onclick="openStudyMaterial('Banking')">Banking Exams</li>
+      <li onclick="openStudyMaterial('SSC')">SSC CGL Commerce Stream</li>
     </ul>
 
     <h2>Skills</h2>
     <ul>
-      <li>Excel</li>
-      <li>Word</li>
-      <li>PowerPoint</li>
-      <li>Tally ERP</li>
-      <li>Data Analysis</li>
-      <li>Communication Skills</li>
-      <li>Digital Finance Tools</li>
+      <li onclick="openSkill('Excel')">Excel</li>
+      <li onclick="openSkill('Communication')">Communication</li>
     </ul>
 
     <h2>Tools</h2>
     <ul>
-      <li>CGPA Calculator</li>
-      <li>GPA Calculator</li>
-      <li>Profit & Loss</li>
-      <li>Interest</li>
-      <li>EMI</li>
-      <li>Currency Converter</li>
-      <li>Tax Calculator</li>
-      <li>Age Calculator</li>
-      <li>Unit Converter</li>
-      <li>Loan Calculator</li>
-      <li>Money Calculator</li>
-    </ul>
-  </aside>
-
-  <!-- Right Sidebar -->
-  <aside id="right-sidebar">
-    <h2>Commerce News</h2>
-    <ul>
-      <li>GST Updates 2026</li>
-      <li>Stock Market Trends</li>
-      <li>AI in Finance</li>
+      <li onclick="openTool('Calculator')">Calculator</li>
+      <li onclick="openTool('Feedback')">Feedback</li>
     </ul>
 
     <h2>Trending Topics</h2>
     <ul>
-      <li>Digital Banking</li>
-      <li>Corporate Governance</li>
-      <li>Global Trade</li>
+      <li onclick="openTrending('AI')">AI in Commerce</li>
+      <li onclick="openTrending('CFO')">CFO Career Tips</li>
+      <li onclick="openTrending('Market')">Market Update</li>
     </ul>
-  </aside>
 
-  <!-- Main Content -->
-  <main>
+    <h2>Discover</h2>
+    <ul>
+      <li onclick="openDiscover('CFO')">CFO</li>
+      <li onclick="openDiscover('Analyst')">Analyst</li>
+      <li onclick="openDiscover('Auditor')">Auditor</li>
+      <li onclick="openDiscover('AIHelp')">AI Help</li>
+    </ul>
+  </div>
+
+  <div id="content" class="content">
     <h2>Welcome to CommerciumX</h2>
-    <p>This is your complete commerce hub: academics, competitive exams, skills, tools, guidance, and career opportunities.</p>
-  </main>
+    <p>Select a section from the sidebar to view detailed articles.</p>
+  </div>
+</div>
 
-  <!-- Footer -->
-  <footer>
-    <p>© CommerciumX</p>
-    <h2>Contact Us</h2>
-    <form action="mailto:ritushhh09@gmail.com" method="post" enctype="text/plain">
-      <input type="text" name="name" placeholder="Your Name">
-      <input type="email" name="email" placeholder="Your Email">
-      <textarea name="message" placeholder="Your Message"></textarea>
-      <button type="submit">Send</button>
-    </form>
-  </footer>
+<footer>
+  <h2>Contact Us</h2>
+  <form>
+    <input type="text" placeholder="Name"><br><br>
+    <input type="email" placeholder="Email"><br><br>
+    <textarea placeholder="Message"></textarea><br><br>
+    <button type="submit">Send</button>
+  </form>
+</footer>
 
-  <script src="script.js"></script>
+<script>
+function switchTheme(value){
+  if(value==='dark'){ document.body.className='dark'; }
+  else if(value==='light'){ document.body.className='light'; }
+  else { document.body.className=''; }
+}
+function openCourse(course){ document.getElementById("content").innerHTML=`<h2>${course}</h2><p>Subjects list + detailed articles (Accounting, Economics, Business Law, Management). Each subject has sub-topics with 5–6 page articles.</p>`; }
+function openExam(exam){ document.getElementById("content").innerHTML=`<h2>${exam} Exam</h2><p>Overview + Levels + Syllabus + Practice Questions.</p>`; }
+function openStudyMaterial(exam){ document.getElementById("content").innerHTML=`<h2>${exam} Study Material</h2><ul><li>Short Notes</li><li>Detailed Notes</li><li>Overview</li><li>Practice Material (MCQs, Flashcards)</li></ul>`; }
+function openSkill(skill){ document.getElementById("content").innerHTML=`<h2>${skill}</h2><p>Detailed article on ${skill}.</p>`; }
+function openTool(tool){ document.getElementById("content").innerHTML=`<h2>${tool}</h2><p>Tool description and usage.</p>`; }
+function openTrending(topic){ document.getElementById("content").innerHTML=`<h2>${topic}</h2><p>Mini-article with 3–4 paragraphs.</p>`; }
+function openDiscover(item){ document.getElementById("content").innerHTML=`<h2>${item}</h2><p>Career path, responsibilities, salary range.</p>`; }
+</script>
+
 </body>
 </html>
-
